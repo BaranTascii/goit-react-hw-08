@@ -1,24 +1,23 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/contactsOps";
+import { deleteContact } from "../../redux/contacts/operations.js";
 import styles from "./Contact.module.css";
 
-function Contact({ contact }) {
+function Contact({ id, name, number }) {
   const dispatch = useDispatch();
-
   return (
-    <li className={styles.item}>
+    <div className={styles.card}>
       <div className={styles.info}>
-        <div className={styles.name}>{contact.name}</div>
-        <div className={styles.number}>{contact.number}</div>
+        <div className={styles.name}>{name}</div>
+        <div className={styles.number}>{number}</div>
       </div>
       <button
-        className={styles.delete}
-        onClick={() => dispatch(deleteContact(contact.id))}
+        className={styles.btn}
+        onClick={() => dispatch(deleteContact(id))}
       >
         Delete
       </button>
-    </li>
+    </div>
   );
 }
 

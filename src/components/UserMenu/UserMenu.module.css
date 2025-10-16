@@ -1,0 +1,15 @@
+.wrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.name {
+  color: var(--muted);
+}
+.btn {
+  background: var(--accent);
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}

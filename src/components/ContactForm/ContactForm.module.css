@@ -1,33 +1,32 @@
 .form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  width: 100%;
+  gap: 10px;
+  padding: 20px;
+  background-color: #222;
+  border-radius: 10px;
+  width: 300px;
+  margin: 20px auto;
 }
 
-.input {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
+input {
+  padding: 8px;
   border: none;
-  background-color: #1e1e1e;
-  color: #fff;
-  font-size: 14px;
-  box-sizing: border-box;
+  border-radius: 6px;
+  outline: none;
 }
 
-.button {
+button {
+  background-color: orange;
+  border: none;
+  border-radius: 8px;
   padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background-color: #ff6600;
-  color: #fff;
-  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s ease;
+  color: black;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
-.button:hover {
-  background-color: #ff8800;
+button:hover {
+  background-color: #ff8c00;
 }

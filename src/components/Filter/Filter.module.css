@@ -1,0 +1,12 @@
+.wrap {
+  max-width: 360px;
+  margin: 10px auto;
+}
+.wrap input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #222;
+  background: #0b0b0b;
+  color: #fff;
+}

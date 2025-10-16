@@ -1,55 +1,53 @@
 import React from "react";
-import { useFormik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "../../redux/contacts/operations.js";
+import { selectContacts } from "../../redux/contacts/selectors.js";
 import styles from "./ContactForm.module.css";
 
-const schema = Yup.object({
-  name: Yup.string().required("Name is required").min(3).max(50),
-  number: Yup.string().required("Number is required").min(3).max(50),
+const schema = Yup.object().shape({
+  name: Yup.string().required("Required").min(3),
+  number: Yup.string().required("Required").min(3),
 });
 
 function ContactForm() {
   const dispatch = useDispatch();
-
-  const formik = useFormik({
-    initialValues: { name: "", number: "" },
-    validationSchema: schema,
-    onSubmit: (values, { resetForm }) => {
-      dispatch(addContact(values));
-      resetForm();
-    },
-  });
+  const contacts = useSelector((state) => state.contacts.items);
 
   return (
-    <form onSubmit={formik.handleSubmit} className={styles.form}>
-      <input
-        name="name"
-        placeholder="Name"
-        value={formik.values.name}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-      />
-      {formik.touched.name && formik.errors.name && (
-        <div className={styles.error}>{formik.errors.name}</div>
-      )}
-
-      <input
-        name="number"
-        placeholder="Number"
-        value={formik.values.number}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-      />
-      {formik.touched.number && formik.errors.number && (
-        <div className={styles.error}>{formik.errors.number}</div>
-      )}
-
-      <button type="submit" className={styles.button}>
-        Add contact
-      </button>
-    </form>
+    <Formik
+      initialValues={{ name: "", number: "" }}
+      validationSchema={schema}
+      onSubmit={(values, { resetForm }) => {
+        const found = contacts.find(
+          (c) =>
+            c.name.trim().toLowerCase() === values.name.trim().toLowerCase()
+        );
+        if (found) {
+          alert(`${values.name} is already in contacts.`);
+          return;
+        }
+        dispatch(addContact(values));
+        resetForm();
+      }}
+    >
+      <Form className={styles.form}>
+        <label className={styles.label}>
+          Name
+          <Field name="name" className={styles.input} />
+        </label>
+        <ErrorMessage name="name" component="div" className={styles.error} />
+        <label className={styles.label}>
+          Number
+          <Field name="number" className={styles.input} />
+        </label>
+        <ErrorMessage name="number" component="div" className={styles.error} />
+        <button type="submit" className={styles.button}>
+          Add contact
+        </button>
+      </Form>
+    </Formik>
   );
 }
 

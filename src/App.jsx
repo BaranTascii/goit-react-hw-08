@@ -1,36 +1,69 @@
 import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import ContactForm from "./components/ContactForm/ContactForm";
-import SearchBox from "./components/SearchBox/SearchBox";
-import ContactList from "./components/ContactList/ContactList";
-import { fetchContacts } from "./redux/contactsOps";
-import styles from "./App.module.css";
-import {
-  selectContactsLoading,
-  selectContactsError,
-} from "./redux/contactsSlice";
+import Layout from "./components/Layout/Layout.jsx";
+import Home from "./pages/Home/Home.jsx";
+import Registration from "./pages/Registration/Registration.jsx";
+import Login from "./pages/Login/Login.jsx";
+import Contacts from "./pages/Contacts/Contacts.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
+import RestrictedRoute from "./components/RestrictedRoute.jsx";
+import { refreshUser } from "./redux/auth/operations.js";
+import { selectIsRefreshing } from "./redux/auth/selectors.js";
 
-function App() {
+export default function App() {
   const dispatch = useDispatch();
-  const loading = useSelector(selectContactsLoading);
-  const error = useSelector(selectContactsError);
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.card}>
-        <h1 className={styles.title}>Phonebook</h1>
-        <ContactForm />
-        <SearchBox />
-        {loading && <p className={styles.info}>Loading...</p>}
-        {error && <p className={styles.error}>Error: {error}</p>}
-        <ContactList />
+  if (isRefreshing) {
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div style={{ fontSize: 18, color: "var(--muted)" }}>
+            Restoring session...
+          </div>
+        </div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route
+          path="register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<Registration />}
+            />
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<Login />} />
+          }
+        />
+        <Route
+          path="contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<Contacts />} />
+          }
+        />
+      </Route>
+    </Routes>
   );
 }
-
-export default App;

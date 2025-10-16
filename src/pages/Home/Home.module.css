@@ -1,0 +1,22 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+.card {
+  background: var(--card);
+  padding: 32px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 102, 0, 0.04);
+  text-align: center;
+  box-shadow: 0 8px 24px var(--shadow);
+}
+.title {
+  color: var(--accent);
+  margin: 0 0 8px 0;
+}
+.text {
+  color: var(--muted);
+  margin: 0;
+}
