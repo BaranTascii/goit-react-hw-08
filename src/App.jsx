@@ -21,16 +21,9 @@ export default function App() {
 
   if (isRefreshing) {
     return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div style={{ textAlign: "center" }}>
-          <div style={{ fontSize: 18, color: "var(--muted)" }}>
+      <div>
+        <div>
+          <div>
             Restoring session...
           </div>
         </div>

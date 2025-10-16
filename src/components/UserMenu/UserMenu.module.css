@@ -1,15 +1,28 @@
-.wrap {
+.container {
   display: flex;
-  gap: 10px;
   align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px;
+  background-color: #000;
 }
-.name {
-  color: var(--muted);
+
+.username {
+  color: #fff;
+  font-weight: 500;
 }
-.btn {
-  background: var(--accent);
+
+.button {
+  background-color: #ff6600;
   border: none;
-  padding: 8px 10px;
+  color: #000;
+  font-weight: 600;
+  padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background-color: #ffa500;
 }

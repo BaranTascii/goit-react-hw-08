@@ -1,12 +1,20 @@
-.wrap {
-  max-width: 360px;
-  margin: 10px auto;
+.filterContainer {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
 }
-.wrap input {
-  width: 100%;
-  padding: 8px;
+
+.input {
+  padding: 10px;
+  border: 2px solid #ff6600;
   border-radius: 8px;
-  border: 1px solid #222;
-  background: #0b0b0b;
+  width: 250px;
+  background-color: #111;
   color: #fff;
+  text-align: center;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #ffa500;
 }
